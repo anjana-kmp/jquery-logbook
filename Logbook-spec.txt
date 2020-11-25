@@ -1,0 +1,15 @@
+Logbook-spec.txt
+What is logbook:
+
+    It will be showing a form for entering project details.
+    Each project details (in forms) ;each project details contains project name,project 
+    description, language , date.
+    
+Why logbook is needed:
+    I want to search my projects by name.
+    I want to search my projects by tags.
+    I want to see the projects created within a period.
+    I want to see a sorted list of my projects.
+
+Happy Coding :)
+
