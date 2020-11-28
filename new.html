@@ -6,43 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add new item</title>
     <style>
-        *{
+        * {
             font-family: sans-serif;
         }
-        body{
+
+        body {
             width: 100%;
             height: 100%;
             position: absolute;
             display: flex;
-            justify-content:top;
+            justify-content: top;
             align-items: center;
             font-size: 1.25em;
             flex-direction: column;
         }
-       .box{
-        border: 2px solid;
-        width: 500px;
-        padding: 20px;
-        margin-top: 50px;
-       }
-       .message{
-           padding-top: 10px;
-           color: green;
-       }
-       .hidden{
-           visibility: hidden;
-       }
-       form label{
-           width: 200px;
-           display: inline-block;
-           padding: 7px;
-       }
-       input{
-           width: 250px;
-       }
-       button{
-           padding: 5px 20px;
-       }
+
+        .box {
+            border: 2px solid;
+            width: 500px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .message {
+            padding-top: 10px;
+            color: green;
+        }
+
+        form label {
+            width: 200px;
+            display: inline-block;
+            padding: 7px;
+        }
+
+        input {
+            width: 250px;
+        }
+
+        button {
+            padding: 5px 20px;
+        }
     </style>
     <script src="./lib/jquery-3.5.1.min.js"></script>
 </head>
@@ -51,18 +54,18 @@
     <h1>Add new item</h1>
     <div class="box">
 
-        <form class="newitem-form">
+        <form class="newitem-form" novalidate>
 
-            <label for="itemname">Project name: </label> 
+            <label for="itemname">Project name: </label>
             <input type="text" id="itemname"><br>
 
-            <label for="language">Language: </label> 
+            <label for="language">Language: </label>
             <input type="text" id="language"><br>
 
-            <label for="tags">Tags: </label> 
+            <label for="tags">Tags: </label>
             <input type="text" id="tags"><br>
 
-            <label for="projectsite">Project site: </label> 
+            <label for="projectsite">Project site: </label>
             <input type="text" id="projectsite"><br>
             <button>Add</button>
             <button>Cancel</button>
@@ -71,15 +74,62 @@
         </form>
 
     </div>
-    <div class="message hidden">
+    <div class="message">
         An item is added successfully.
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Project name
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
     <script>
         // alert('This is from new html')
-        function init(){
+        var myItems = []
+        function init() {
+            $('.message').hide()
             $('button').attr('disabled', true)
-            $('input').on('blur',()=>{
-                // alert(event.type)
+            $('input').on('keyup', () => {
+                let blankInputs = $('input').filter((idx, itm) => {
+                    return !$(itm).val().length
+                })
+
+                if (blankInputs.length == 0) {
+                    $('button').attr('disabled', false)
+                } else {
+                    $('button').attr('disabled', true)
+                }
+            })
+            $('button').on('click', (event) => {
+                event.preventDefault()
+                if (event.target.textContent == 'Add') {
+                    var obj = {}
+                    obj.itemname = $('#itemname')
+                    obj.language = $('#language')
+                    obj.tags = $('#tags')
+                    obj.projectsite = $('#projectsite')
+                    myItems.push(obj)
+                    
+                    myItems.forEach((itm) => {
+                        $('tbody').append('<tr><td>' + itm.itemname[0].value + '</tr></td>')
+                    })
+
+                    $('#itemname').val('')
+                    $('#language').val('')
+                    $('#tags').val('')
+                    $('#projectsite').val('')
+
+                    localStorage.setItem('myItems', JSON.stringify(myItems))
+                    $('.message').show()
+
+
+                }
             })
         }
         init()
