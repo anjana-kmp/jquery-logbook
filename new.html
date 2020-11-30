@@ -32,7 +32,20 @@
             padding-top: 10px;
             color: green;
         }
+        .message table td{
+        
+            color: black;
+            border: 2px solid;
+            text-align: center;
 
+        }
+        .message table{
+        
+        color: black;
+        border: 2px solid;
+        text-align: center;
+        
+    }
         form label {
             width: 200px;
             display: inline-block;
@@ -46,6 +59,9 @@
         button {
             padding: 5px 20px;
         }
+       
+       
+        
     </style>
     <script src="./lib/jquery-3.5.1.min.js"></script>
 </head>
@@ -82,6 +98,15 @@
                     <td>
                         Project name
                     </td>
+                    <td>
+                        Language
+                    </td> 
+                    <td>
+                        Tags
+                    </td> 
+                    <td>
+                        Project site
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -91,8 +116,8 @@
     </div>
     <script>
         // alert('This is from new html')
-        var myItems = []
         function init() {
+            var myItems = []
             $('.message').hide()
             $('button').attr('disabled', true)
             $('input').on('keyup', () => {
@@ -108,22 +133,37 @@
             })
             $('button').on('click', (event) => {
                 event.preventDefault()
+                let currentItems = JSON.parse(localStorage.getItem('myItems')) || []
+                myItems = myItems.concat(currentItems)
+
                 if (event.target.textContent == 'Add') {
                     var obj = {}
-                    obj.itemname = $('#itemname')
-                    obj.language = $('#language')
-                    obj.tags = $('#tags')
-                    obj.projectsite = $('#projectsite')
+                    obj.itemname = $('#itemname').val()
+                    obj.language = $('#language').val()
+                    obj.tags = $('#tags').val()
+                    obj.projectsite = $('#projectsite').val()
                     myItems.push(obj)
                     
+                    $('tbody').children().remove()
                     myItems.forEach((itm) => {
-                        $('tbody').append('<tr><td>' + itm.itemname[0].value + '</tr></td>')
+                        if(myItems.indexOf() == -1){
+                            $('tbody').append('<tr><td>' + itm.itemname  + '</td>\
+                            <td>' + itm.language   + '</td>\
+                            <td>' + itm.tags + '<  /td>\
+                            <td>' + itm.projectsite + '</td>\
+                            </tr>')
+                        }
+                       
+                           
                     })
 
                     $('#itemname').val('')
                     $('#language').val('')
                     $('#tags').val('')
                     $('#projectsite').val('')
+
+                    
+
 
                     localStorage.setItem('myItems', JSON.stringify(myItems))
                     $('.message').show()
