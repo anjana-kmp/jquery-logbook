@@ -115,7 +115,6 @@
         </table>
     </div>
     <script>
-        // alert('This is from new html')
         function init() {
             var myItems = []
             $('.message').hide()
@@ -133,6 +132,7 @@
             })
             $('button').on('click', (event) => {
                 event.preventDefault()
+                myItems = []
                 let currentItems = JSON.parse(localStorage.getItem('myItems')) || []
                 myItems = myItems.concat(currentItems)
 
@@ -142,17 +142,23 @@
                     obj.language = $('#language').val()
                     obj.tags = $('#tags').val()
                     obj.projectsite = $('#projectsite').val()
-                    myItems.push(obj)
+                    let findItem = myItems.filter((itm)=>{
+                        return itm.itemname == obj.itemname
+                    })
+
+                     if(findItem.length == 0){
+                        myItems.push(obj)
+                         }
                     
                     $('tbody').children().remove()
                     myItems.forEach((itm) => {
-                        // if(myItems.indexOf() == -1){
+                        
                             $('tbody').append('<tr><td>' + itm.itemname  + '</td>\
                             <td>' + itm.language+'</td>\
                             <td>' + itm.tags + '</td>\
                             <td>' + itm.projectsite +'</td>\
                             </tr>')
-                        // }
+                        
                        
                            
                     })
