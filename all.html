@@ -5,8 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show All project details</title>
     <style>
-        
+        table{
+            display: table;
+            border: 3px double;
+        }
+        tr{
+            display: table-row;
+        }
+        tr td{
+            width: 25%;
+
+
+        }
+        td{
+            display: table-cell;
+            border: 1px solid;
+        }
     </style>
+    <script src="./lib/jquery-3.5.1.min.js"></script>
 </head>
 <body>
     <table>
@@ -20,10 +36,10 @@
                     Language
                 </td>
                 <td>
-                    Date
+                    Description
                 </td>
                 <td>
-                    Tags
+                    Site url
                 </td>
 
             </tr>
@@ -54,5 +70,24 @@
             
         </tbody>
     </table>
+    <script>
+        function loadProjects(){
+
+            $.get('https://api.github.com/users/anjana-kmp/repos').then((response)=>{
+                debugger
+                $('tbody').children().remove()
+                response.forEach((itm)=>{
+                  
+                    var urlName = 'https://'+'anjana-kmp.github.io/'+itm.name
+                $('tbody').append('<tr><td>'+itm.name+'</td>\
+                <td>'+itm.language+'</td>\
+                <td>'+itm.description+'</td>\
+                <td><a href = "'+urlName+'">'+urlName+'</a></td></tr>')
+                
+                })
+            })
+        }
+        loadProjects()
+    </script>
 </body>
 </html>
