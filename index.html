@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jQuery-Logbook</title>
     <style>
+        
         body{
             width: 100%;
             height: 100%;
@@ -47,8 +48,12 @@
             width: 200px; 
             border-radius: .5em;
             padding: 10px;
+            font-size: 1.25em;
+            margin-bottom: 40px;
         }
+        
     </style>
+    <link rel="stylesheet" href="./lib/css/bootstrap.css">
     <script src="./lib/jquery-3.5.1.min.js"></script>
 </head>
 <body>
@@ -57,13 +62,13 @@
         <h2>My logbook projects</h2>
         <div class="box">
             <a href="./new.html">
-                <button>Add new item</button><br>
+                <button class="btn btn-primary">Add new item</button><br>
             </a>
             <a href="./all.html">
-                <button>Show all project details</button><br>
+                <button class="btn btn-success">Show all project details</button><br>
             </a>
             <a href="./search.html">
-                <button>Search projects</button><br>
+                <button class="btn btn-danger">Search projects</button><br>
             </a>
 
         </div>
